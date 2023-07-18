@@ -72,13 +72,13 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
-
-        AuthResponse authResponse= new AuthResponse(token,true);
+        String name = firstName + " " + lastName;
+        AuthResponse authResponse= new AuthResponse(token,true,name, email );
         return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
 
     }
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
