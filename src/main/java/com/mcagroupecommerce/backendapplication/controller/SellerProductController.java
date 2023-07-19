@@ -19,7 +19,7 @@ public class SellerProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("/creates")
     public ResponseEntity<ApiResponse> createMultipleProduct(@RequestBody CreateProductRequest[] reqs) throws ProductException {
 
         for(CreateProductRequest product:reqs) {

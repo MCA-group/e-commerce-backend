@@ -6,6 +6,7 @@ import com.mcagroupecommerce.backendapplication.model.User;
 import com.mcagroupecommerce.backendapplication.repository.UserRepository;
 import com.mcagroupecommerce.backendapplication.request.LoginRequest;
 import com.mcagroupecommerce.backendapplication.responses.AuthResponse;
+import com.mcagroupecommerce.backendapplication.service.CartService;
 import com.mcagroupecommerce.backendapplication.service.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -27,15 +28,15 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     private JwtTokenProvider jwtTokenProvider;
     private CustomUserDetails customUserDetails;
-//    private CartService cartService;
+    private CartService cartService;
 
-    public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,JwtTokenProvider jwtTokenProvider,CustomUserDetails customUserDetails) {
-        //                          CartService cartService
+    public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,JwtTokenProvider jwtTokenProvider,CustomUserDetails customUserDetails,CartService cartService) {
+
         this.userRepository=userRepository;
         this.passwordEncoder=passwordEncoder;
         this.jwtTokenProvider=jwtTokenProvider;
         this.customUserDetails=customUserDetails;
-//        this.cartService=cartService;
+        this.cartService=cartService;
     }
 
     @PostMapping("/signup")
@@ -66,7 +67,7 @@ public class AuthController {
 
         User savedUser= userRepository.save(createdUser);
 
-//        cartService.createCart(savedUser);
+        cartService.createCart(savedUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
