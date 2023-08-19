@@ -36,10 +36,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses=new ArrayList<>();
 
-//    @Embedded
-//    @ElementCollection
-//    @CollectionTable(name="payment_information",joinColumns = @JoinColumn(name="user_id"))
-//    private List<PaymentInformation> paymentInformation=new ArrayList<>();
+    @Embedded
+    @ElementCollection
+    @CollectionTable(name="payment_information",joinColumns = @JoinColumn(name="user_id"))
+    private List<PaymentInformation> paymentInformation=new ArrayList<>();
 
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
@@ -57,7 +57,8 @@ public class User {
 
     public User(Long id, String firstName, String lastName, String password, String email, UserRole role, String mobile,
                 List<Address> addresses,
-//                List<PaymentInformation> paymentInformation, List<Rating> ratings,
+                List<PaymentInformation> paymentInformation,
+//                List<Rating> ratings,
 //                List<Review> reviews,
                 LocalDateTime createdAt) {
         super();
@@ -69,7 +70,7 @@ public class User {
         this.role = role;
         this.mobile = mobile;
         this.addresses = addresses;
-//        this.paymentInformation = paymentInformation;
+        this.paymentInformation = paymentInformation;
 //        this.ratings = ratings;
 //        this.reviews = reviews;
         this.createdAt = createdAt;
@@ -163,12 +164,12 @@ public class User {
         this.addresses = addresses;
     }
 
-//    public List<PaymentInformation> getPaymentInformation() {
-//        return paymentInformation;
-//    }
-//
-//    public void setPaymentInformation(List<PaymentInformation> paymentInformation) {
-//        this.paymentInformation = paymentInformation;
-//    }
+    public List<PaymentInformation> getPaymentInformation() {
+        return paymentInformation;
+    }
+
+    public void setPaymentInformation(List<PaymentInformation> paymentInformation) {
+        this.paymentInformation = paymentInformation;
+    }
 
 }
